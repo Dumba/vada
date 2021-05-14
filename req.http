@@ -1,0 +1,81 @@
+@host=http://localhost:5000
+
+### FAMILY ###
+
+###
+# @name List
+GET {{host}}/family/list
+
+###
+# @name Add
+POST {{host}}/family/update
+Content-Type: application/json
+
+{
+    "street": "Dubějovická",
+    "houseNumber": "50",
+    "city": "Trhový Štěpánov",
+    "zip": "257 63"
+}
+
+###
+# @name Get
+GET {{host}}/family/get?id=bae5da80-125d-4408-8f1c-ddbef8859b30
+
+###
+# @name Update
+POST {{host}}/family/update
+Content-Type: application/json
+
+{
+    "id": "bae5da80-125d-4408-8f1c-ddbef8859b30",
+    "street": "Dubějovická",
+    "houseNumber": "50",
+    "city": "Trhový Štěpánov",
+    "zip": "25763"
+}
+
+###
+# @name Delete
+DELETE {{host}}/family/delete?id=bae5da80-125d-4408-8f1c-ddbef8859b30
+
+### MEMBER ###
+
+###
+# @name List
+GET {{host}}/member/list
+
+###
+# @name Add
+POST {{host}}/member/update
+Content-Type: application/json
+
+{
+    "firstName": "Samuel",
+    "middleName": "L.",
+    "lastName": "Jackson",
+    "role": "child",
+    "familyId": "98bdd017-51fe-4df6-84d1-07080870844b"
+}
+
+###
+# @name Get
+GET {{host}}/member/get?id=196dbf81-04e8-49fd-afa4-6a0f809ac6cd
+
+###
+# @name Update
+POST {{host}}/member/update
+Content-Type: application/json
+
+{
+    "id": "196dbf81-04e8-49fd-afa4-6a0f809ac6cd",
+    "firstName": "Samuel",
+    "middleName": "L.",
+    "lastName": "Lachman",
+    "role": "child",
+    "familyId": "98bdd017-51fe-4df6-84d1-07080870844b"
+}
+
+###
+# @name Delete
+DELETE {{host}}/member/delete?id=196dbf81-04e8-49fd-afa4-6a0f809ac6cd
