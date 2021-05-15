@@ -28,7 +28,7 @@ namespace Backend
         {
             app.UseRouting();
 
-            app.UseEndpoints(routes => routes.MapControllerRoute("default", "{controller}/{action}"));
+            app.UseEndpoints(routes => routes.MapControllerRoute("default", "api/{controller}/{action}"));
         }
 
         private string GetConnectionString()

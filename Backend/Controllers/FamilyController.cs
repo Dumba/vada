@@ -23,6 +23,7 @@ namespace Backend.Controllers
             var familiesModel = familiesDb.Select(m => new Family
             {
                 Id = m.Id,
+                Name = m.Name,
                 Street = m.Street,
                 HouseNumber = m.HouseNumber,
                 City = m.City,
@@ -43,6 +44,7 @@ namespace Backend.Controllers
             var familyModel = new Family
             {
                 Id = familyDb.Id,
+                Name = familyDb.Name,
                 Street = familyDb.Street,
                 HouseNumber = familyDb.HouseNumber,
                 City = familyDb.City,
@@ -68,6 +70,7 @@ namespace Backend.Controllers
                 _db.Add(familyDb);
             }
 
+            familyDb.Name = family.Name;
             familyDb.Street = family.Street;
             familyDb.HouseNumber = family.HouseNumber;
             familyDb.City = family.City;
