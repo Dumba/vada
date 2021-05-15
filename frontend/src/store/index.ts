@@ -1,43 +1,11 @@
+import axios from "axios";
 import { createStore, useStore as VuexStore } from 'vuex';
-import { Store, State, UpdateParam } from './types'
+import { Store, State, UpdateParam, DeleteParam } from './types'
 
 export default createStore<State>({
   state: {
-    members: [
-      {
-        id: "32fa11ed-4608-4c02-ac77-bf802ea8bd52",
-        firstName: "Samuel",
-        middleName: "L.",
-        lastName: "Jackson",
-        role: "child",
-        familyId: "98bdd017-51fe-4df6-84d1-07080870844c",
-      },
-      {
-        id: "32fa11ed-4608-4c02-ac77-bf802ea8bd53",
-        firstName: "Jiří",
-        lastName: "Jackson",
-        role: "child",
-        familyId: "98bdd017-51fe-4df6-84d1-07080870844c",
-      }
-    ],
-    families: [
-      {
-        id: "98bdd017-51fe-4df6-84d1-07080870844b",
-        name: "Lachmani",
-        street: "Dubějovická",
-        houseNumber: "50",
-        city: "Trhový Štěpánov",
-        zip: "257 63",
-      },
-      {
-        id: "98bdd017-51fe-4df6-84d1-07080870844c",
-        name: "ee",
-        street: "uu",
-        houseNumber: "50",
-        city: "Trhový",
-        zip: "257 63",
-      }
-    ],
+    members: [],
+    families: [],
     localization: {
       members: "Členové",
       member: "Člen",
@@ -61,6 +29,10 @@ export default createStore<State>({
     }
   },
   mutations: {
+    load(store, payload) {
+      store.members = payload.members;
+      store.families = payload.families;
+    },
     updateMember(store: State, payload: UpdateParam) {
       const member = store.members.find(m => m.id == payload.id);
       (member as any)[payload.property] = payload.value;
@@ -74,7 +46,7 @@ export default createStore<State>({
         id: newGuid(),
         firstName: "",
         lastName: "",
-        role: "",
+        role: "child",
         familyId: store.families[0].id,
       });
     },
@@ -88,17 +60,49 @@ export default createStore<State>({
         zip: ""
       });
     },
-    removeMember(store: State, payload) {
+    removeMember(store: State, payload: DeleteParam) {
       store.members = store.members.filter(m => m.id != payload.id);
       console.log(store);
       
     },
-    removeFamily(store: State, payload) {
+    removeFamily(store: State, payload: DeleteParam) {
       store.families = store.families.filter(f => f.id != payload.id);
       store.members = store.members.filter(m => m.familyId != payload.id);
     }
   },
   actions: {
+    async load(context) {
+      var membersResp = await axios.get("/api/member/list");
+      var familiesResp = await axios.get("/api/family/list");
+
+      context.commit("load", { members: membersResp.data, families: familiesResp.data });
+    },
+    async updateMember(context, payload: UpdateParam) {
+      var updatedMember = context.state.members.find(m => m.id == payload.id);
+      (updatedMember as any)[payload.property] = payload.value;
+
+      await axios.post('/api/member/update', updatedMember);
+
+      context.commit("updateMember", payload);
+    },
+    async updateFamily(context, payload: UpdateParam) {
+      var updatedFamily = context.state.families.find(m => m.id == payload.id);
+      (updatedFamily as any)[payload.property] = payload.value;
+
+      await axios.post('/api/family/update', updatedFamily);
+
+      context.commit("updateFamily", payload);
+    },
+    async removeMember(context, payload: DeleteParam) {
+      await axios.delete(`/api/member/delete?id=${payload.id}`);
+
+      context.commit("removeMember", payload);
+    },
+    async removeFamily(context, payload: DeleteParam) {
+      await axios.delete(`/api/family/delete?id=${payload.id}`);
+
+      context.commit("removeFamily", payload);
+    },
   },
   modules: {
   }

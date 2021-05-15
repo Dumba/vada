@@ -35,7 +35,9 @@ export interface UpdateParam {
     property: string;
     value: string;
 }
-
+export interface DeleteParam {
+    id: string;
+}
 export interface Component {
     $store: Store;
 }

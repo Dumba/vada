@@ -73,7 +73,7 @@ export default class FamilyComp extends Vue {
   }
 
   change(property: string, value: string): void {
-    ((this as unknown) as Component).$store.commit("updateFamily", {
+    ((this as unknown) as Component).$store.dispatch("updateFamily", {
       id: this.family.id,
       property,
       value,
@@ -81,7 +81,7 @@ export default class FamilyComp extends Vue {
   }
 
   remove() {
-    ((this as unknown) as Component).$store.commit("removeFamily", { id: this.family.id });
+    ((this as unknown) as Component).$store.dispatch("removeFamily", { id: this.family.id });
     this.$router.push("/families");
   }
 

@@ -4,11 +4,11 @@
 
 ###
 # @name List
-GET {{host}}/family/list
+GET {{host}}/api/family/list
 
 ###
 # @name Add
-POST {{host}}/family/update
+POST {{host}}/api/family/update
 Content-Type: application/json
 
 {
@@ -20,11 +20,11 @@ Content-Type: application/json
 
 ###
 # @name Get
-GET {{host}}/family/get?id=bae5da80-125d-4408-8f1c-ddbef8859b30
+GET {{host}}/api/family/get?id=bae5da80-125d-4408-8f1c-ddbef8859b30
 
 ###
 # @name Update
-POST {{host}}/family/update
+POST {{host}}/api/family/update
 Content-Type: application/json
 
 {
@@ -37,17 +37,17 @@ Content-Type: application/json
 
 ###
 # @name Delete
-DELETE {{host}}/family/delete?id=bae5da80-125d-4408-8f1c-ddbef8859b30
+DELETE {{host}}/api/family/delete?id=bae5da80-125d-4408-8f1c-ddbef8859b30
 
 ### MEMBER ###
 
 ###
 # @name List
-GET {{host}}/member/list
+GET {{host}}/api/member/list
 
 ###
 # @name Add
-POST {{host}}/member/update
+POST {{host}}/api/member/update
 Content-Type: application/json
 
 {
@@ -60,11 +60,11 @@ Content-Type: application/json
 
 ###
 # @name Get
-GET {{host}}/member/get?id=196dbf81-04e8-49fd-afa4-6a0f809ac6cd
+GET {{host}}/api/member/get?id=196dbf81-04e8-49fd-afa4-6a0f809ac6cd
 
 ###
 # @name Update
-POST {{host}}/member/update
+POST {{host}}/api/member/update
 Content-Type: application/json
 
 {
@@ -78,4 +78,4 @@ Content-Type: application/json
 
 ###
 # @name Delete
-DELETE {{host}}/member/delete?id=196dbf81-04e8-49fd-afa4-6a0f809ac6cd
+DELETE {{host}}/api/member/delete?id=196dbf81-04e8-49fd-afa4-6a0f809ac6cd

@@ -15,6 +15,11 @@ export default class AppComp extends Vue {
     const store = useStore();
     return store.state.localization[key] ?? key;
   }
+
+  mounted() {
+    var store = useStore();
+    store.dispatch("load", {});
+  }
 }
 </script>
 

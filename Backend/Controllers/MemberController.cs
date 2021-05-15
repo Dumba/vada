@@ -57,16 +57,14 @@ namespace Backend.Controllers
         [HttpPost]
         public ActionResult Update([FromBody] Member member)
         {
-            var memberDb = member.Id != null
-                ? _db.Members.Find(member.Id)
-                : new Database.Entities.Member();
+            var memberDb = _db.Members.Find(member.Id);
 
             if (memberDb == null)
-                return StatusCode((int)System.Net.HttpStatusCode.BadRequest, "Member not found");
-
-            if (memberDb.Id == default)
             {
-                memberDb.Id = Guid.NewGuid();
+                memberDb = new Database.Entities.Member
+                {
+                    Id = member.Id,
+                };
                 _db.Add(memberDb);
             }
 

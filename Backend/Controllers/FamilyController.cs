@@ -57,16 +57,14 @@ namespace Backend.Controllers
         [HttpPost]
         public ActionResult Update([FromBody] Family family)
         {
-            var familyDb = family.Id != null
-                ? _db.Families.Find(family.Id)
-                : new Database.Entities.Family();
+            var familyDb = _db.Families.Find(family.Id);
 
             if (familyDb == null)
-                return StatusCode((int)System.Net.HttpStatusCode.BadRequest, "Family not found");
-
-            if (familyDb.Id == default)
             {
-                familyDb.Id = Guid.NewGuid();
+                familyDb = new Database.Entities.Family
+                {
+                    Id = family.Id,
+                };
                 _db.Add(familyDb);
             }
 

@@ -95,7 +95,7 @@ export default class MemberComp extends Vue {
   }
 
   change(property: string, value: string): void {
-    ((this as unknown) as Component).$store.commit("updateMember", {
+    ((this as unknown) as Component).$store.dispatch("updateMember", {
       id: this.member.id,
       property,
       value,
@@ -103,7 +103,7 @@ export default class MemberComp extends Vue {
   }
 
   remove() {
-    ((this as unknown) as Component).$store.commit("removeMember", { id: this.member.id });
+    ((this as unknown) as Component).$store.dispatch("removeMember", { id: this.member.id });
     this.$router.push("/");
   }
 
