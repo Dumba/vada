@@ -1,30 +1,91 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">{{ localize("members") }}</router-link>
+    <router-link to="/families">{{ localize("families") }}</router-link>
   </div>
   <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Vue } from "vue-class-component";
+import { useStore } from "./store/index";
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default class AppComp extends Vue {
+  localize(key: string): string {
+    const store = useStore();
+    return store.state.localization[key] ?? key;
   }
 }
+</script>
+
+<style lang="sass">
+#app
+  display: grid
+  margin: 2rem
+  grid-template-columns: 800px
+  justify-content: center
+
+  #nav
+    display: grid
+    grid-auto-flow: column
+    grid-gap: 1rem
+    justify-content: center
+
+    a
+      text-decoration: none
+      color: #123
+      font-weight: bold
+    
+  h1
+    justify-self: center
+  button
+    margin-top: -20px
+    margin-bottom: 20px
+    padding: 0px 15px
+    justify-self: center
+    width: max-content
+  
+  .detail
+    display: grid
+    grid-template-columns: 1fr 2fr
+    grid-gap: 1rem
+
+    h1
+      grid-column: 1 / 3
+    button
+      grid-column: 1 / 3
+
+    label
+      grid-column: 1
+      justify-self: end
+      font-weight: bold
+    input, select
+      grid-column: 2
+
+    &:not(.edit)
+      input, select
+        border-color: transparent
+        opacity: 1
+        color: #000
+        background-color: #fff
+        appearance: none
+
+  .list
+    display: grid
+    justify-content: center
+
+    ul, li
+      display: grid
+      grid-gap: 5px
+      padding: 0
+
+      a
+        display: grid
+        padding-left: 3px
+        grid-auto-flow: column
+        grid-gap: 5px
+        text-decoration: none
+        color: inherit
+
+        border-left: 3px solid #000
 </style>
